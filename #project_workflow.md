@@ -148,17 +148,16 @@
                     Push to ECR
                           │
                           ▼
-                     ArgoCD
+                       ArgoCD
                           │
                           ▼
-              Kubernetes Cluster
+                Kubernetes Cluster
              ┌──────────┴──────────┐
              ▼                     ▼
-      Application Pods      OWASP ZAP
-                                 │
-                                 ▼
-                            DAST Report
-
+      Application Pods       OWASP ZAP
+                                  │
+                                  ▼
+                             DAST Report                     
              ┌──────────┴──────────┐
              ▼                     ▼
        Prometheus            FluentBit
@@ -171,6 +170,7 @@
                                    │
                                    ▼
                                 Kibana
+
 
 
 ### infraa -Structure!!
