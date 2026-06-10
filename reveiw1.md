@@ -1,5 +1,5 @@
 # Project Title:       
-### Ageisflow / VarmanSetu :End-to-End DevSecOps CI/CD Pipeline with GitOps and Observability.
+###  AnzenOps:End-to-End DevSecOps CI/CD Pipeline with GitOps and Observability.
 
 # Objective:
 {An objective is a specific, measurable result that you plan to achieve within a set timeframe. It acts as a clear target that guides your actions and defines what success looks like }
@@ -67,22 +67,56 @@
                                                              Kibana
 
 
-
-
-
 # Tools and Techology used:
-1) Ias: Ansible , Terraform
-2) Continuous Integration
-3) Continuous Deployment/Delivery
-4) SAST
-5) DAST
-6) Image & Scannig : Docker and Trivy
+1) Iac: Ansible ,Terraform
+2) Continuous Integration: GitHub Actions
+3) Continuous Deployment/Delivery: AgroCD
+4) SAST: SonarCube
+5) DAST: OWASP Zap
+6) Image & Scanning: Docker and Trivy
 7) Orchestration: EKS
-8) Monitoring: 
+8) Health & Performance Monitoring: Prometheus + Grafana 
+9) Security Monitoring / SIEM: Wazuh + ELK 
 
+# Infrastructure
+AWS Account
+│
+└── VPC (10.0.0.0/16)
+    │
+    ├── Public Subnet (10.0.1.0/24)
+    │   │
+    │   ├── Bastion Host (EC2)
+    │   │    ├─ SSH Access
+    │   │    └─ Ansible Control Node
+    │   │
+    │   └── NAT Gateway
+    │
+    ├── Private Subnet A (10.0.2.0/24)
+    │   │
+    │   ├── Kubernetes Master Node
+    │   │
+    │   └── SonarQube Server
+    │
+    ├── Private Subnet B (10.0.3.0/24)
+    │   │
+    │   ├── Kubernetes Worker Node 1
+    │   │
+    │   └── Kubernetes Worker Node 2
+    │
+    └── Private Subnet C (10.0.4.0/24)
+        │
+        ├── Monitoring Server
+        │    ├─ Prometheus
+        │    ├─ Grafana
+        │    └─ AlertManager
+        │
+        └── SIEM Server
+             ├─ Wazuh
+             ├─ Elasticsearch
+             └─ Kibana     
 
-
-# Execution Flow:
+# Project Execution Flow:
+1) Build the Application to deploy
 
 
 
