@@ -1,0 +1,2 @@
+the prompt will be stored here to avoid confusion and maintain consistency in project
+
