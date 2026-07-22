@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        Welcome {{ username }}
+    </h1>
+
+    <h2>
+        Create Clipboard Note
+    </h2>
+
+    <form method="POST" action="/add_note">
+
+        <textarea
+            name="content"
+            rows="5"
+            cols="50"
+            placeholder="Enter your note"
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Save Note
+        </button>
+
+    </form>
+
+    <hr>
+
+    <h2>
+        Your Notes
+    </h2>
+
+    {% for note in notes %}
+
+        <div class="note">
+
+            <p>
+                {{ note[1] }}
+            </p>
+
+            <a href="/delete_note/{{ note[0] }}">
+                Delete
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <p>
+            No notes found.
+        </p>
+
+    {% endfor %}
+
+    <br>
+
+    <a href="/logout">
+        Logout
+    </a>
+
+</div>
+
+</body>
+
+</html>
