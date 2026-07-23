@@ -25,7 +25,9 @@ spec:
 
         - name: flask-app
 
-          image: 266092630927.dkr.ecr.ap-south-1.amazonaws.com/vulnerable-flask-app:1.0
+          # GitHub Actions will replace IMAGE_PLACEHOLDER
+          # with the exact ECR image and Git commit SHA.
+          image: IMAGE_PLACEHOLDER
 
           imagePullPolicy: Always
 
@@ -37,10 +39,11 @@ spec:
                 name: postgres-secret
 
           resources:
+
             requests:
               cpu: "100m"
               memory: "128Mi"
 
             limits:
               cpu: "500m"
-              memory: "512Mi"
+              memory: "513Mi"
