@@ -407,3 +407,74 @@ jobs:
           echo "Argo CD will now synchronize the change"
 
           echo "======================================"
+
+  # ==========================================================
+  # JOB 3: OWASP ZAP DAST
+  # ==========================================================
+
+  dast-zap:
+
+    name: OWASP ZAP DAST Scan
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - build-and-push
+
+    env:
+
+      ZAP_TARGET_URL: ${{ secrets.ZAP_TARGET_URL }}
+
+    steps:
+
+      # --------------------------------------------------------
+      # 1. DISPLAY TARGET
+      # --------------------------------------------------------
+
+      - name: Display ZAP Target
+
+        run: |
+
+          echo "======================================"
+
+          echo "OWASP ZAP DAST Scan"
+
+          echo "Target Application:"
+          echo "$ZAP_TARGET_URL"
+
+          echo "======================================"
+
+
+      # --------------------------------------------------------
+      # 2. RUN OWASP ZAP BASELINE SCAN
+      # --------------------------------------------------------
+
+      - name: OWASP ZAP Baseline Scan
+
+        uses: zaproxy/action-baseline@v0.15.0
+
+        with:
+
+          target: ${{ secrets.ZAP_TARGET_URL }}
+
+          cmd_options: "-a"
+
+          allow_issue_writing: false
+
+
+      # --------------------------------------------------------
+      # 3. DAST COMPLETION
+      # --------------------------------------------------------
+
+      - name: DAST Scan Completed
+
+        run: |
+
+          echo "======================================"
+
+          echo "OWASP ZAP DAST SCAN COMPLETED"
+
+          echo "Target:"
+          echo "$ZAP_TARGET_URL"
+
+          echo "======================================"
