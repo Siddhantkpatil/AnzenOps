@@ -323,15 +323,22 @@ jobs:
       # 10. UPDATE KUBERNETES DEPLOYMENT
       # --------------------------------------------------------
 
+      # - name: Update Kubernetes Deployment Image
+
+      #   run: |
+
+      #     echo "Updating Kubernetes deployment..."
+
+      #     sed -i \
+      #       "s|image: IMAGE_PLACEHOLDER|image: $IMAGE_NAME:$IMAGE_TAG|g" \
+      #       app/k8s/deployment.yaml
+      
       - name: Update Kubernetes Deployment Image
-
         run: |
-
           echo "Updating Kubernetes deployment..."
-
-          sed -i \
-            "s|image: IMAGE_PLACEHOLDER|image: $IMAGE_NAME:$IMAGE_TAG|g" \
-            app/k8s/deployment.yaml
+          sed -i -E \
+            "s|image: .*|image: $IMAGE_NAME:$IMAGE_TAG|g" \
+              app/k8s/deployment.yaml
 
 
       # --------------------------------------------------------
