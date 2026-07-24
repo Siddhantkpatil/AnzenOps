@@ -27,7 +27,7 @@ spec:
 
           # GitHub Actions will replace IMAGE_PLACEHOLDER
           # with the exact ECR image and Git commit SHA.
-          image: 266092630927.dkr.ecr.ap-south-1.amazonaws.com/vulnerable-flask-app:59243cd5ebc70811ad5eb4d0e1874c82030b0703
+          image: 266092630927.dkr.ecr.ap-south-1.amazonaws.com/vulnerable-flask-app:af53ad503d156db3b452e7094d9becba89223c29
 
           imagePullPolicy: Always
 
