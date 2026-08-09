@@ -2,19 +2,15 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Upgrade Python packaging tools to patched versions
 RUN pip install --no-cache-dir --upgrade \
     pip \
-    setuptools \
-    wheel
+    setuptools==83.0.0 \
+    wheel==0.46.2
 
-# Copy application dependencies
 COPY requirements.txt .
 
-# Install application dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application source code
 COPY . .
 
 EXPOSE 5000

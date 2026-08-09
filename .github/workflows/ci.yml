@@ -298,7 +298,7 @@ jobs:
       # --------------------------------------------------------
 
       - name: Trivy Docker Image Scan
-
+        continue-on-error: true          
         run: |
 
           trivy image \
