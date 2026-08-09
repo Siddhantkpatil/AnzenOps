@@ -6,7 +6,6 @@ metadata:
   namespace: devsecops
 
 spec:
-
   replicas: 4
 
   selector:
@@ -14,20 +13,27 @@ spec:
       app: vulnerable-flask-app
 
   template:
-
     metadata:
       labels:
         app: vulnerable-flask-app
 
     spec:
 
-      containers:
+      # Spread Flask pods across different worker nodes
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    app: vulnerable-flask-app
 
+      containers:
         - name: flask-app
 
-          # GitHub Actions will replace IMAGE_PLACEHOLDER
-          # with the exact ECR image and Git commit SHA.
-          image:  266092630927.dkr.ecr.ap-south-1.amazonaws.com/vulnerable-flask-app:1.0
+          image: 266092630927.dkr.ecr.ap-south-1.amazonaws.com/vulnerable-flask-app:1.0
 
           imagePullPolicy: Always
 
@@ -38,8 +44,27 @@ spec:
             - secretRef:
                 name: postgres-secret
 
-          resources:
+          # Check whether the application is alive
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
 
+          # Only send traffic when the application is ready
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          resources:
             requests:
               cpu: "100m"
               memory: "128Mi"
