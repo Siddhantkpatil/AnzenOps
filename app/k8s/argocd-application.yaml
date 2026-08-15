@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: vulnerable-flask-app
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Siddhantkpatil/AnzenOps
+    targetRevision: master
+    path: app/k8s
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: devsecops
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
